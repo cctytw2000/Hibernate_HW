@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019/9/20 ?W?? 10:43:22 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.eeit109team6.memberDao.Member" table="MEMBER">
+        <id name="member_id" type="int">
+            <column name="MEMBER_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="account" type="java.lang.String">
+            <column name="ACCOUNT" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="PASSWORD" />
+        </property>
+        <property name="username" type="java.lang.String">
+            <column name="USERNAME" />
+        </property>
+        <property name="idnumber" type="java.lang.String">
+            <column name="IDNUMBER" />
+        </property>
+        <property name="sex" type="java.lang.String">
+            <column name="SEX" />
+        </property>
+        <property name="birth" type="java.lang.String">
+            <column name="BIRTH" />
+        </property>
+        <property name="registeredtime" type="java.lang.String">
+            <column name="REGISTEREDTIME" />
+        </property>
+        <property name="isactive" type="int">
+            <column name="ISACTIVE" />
+        </property>
+        <property name="token" type="java.lang.String">
+            <column name="TOKEN" />
+        </property>
+        <property name="address" type="java.lang.String">
+            <column name="ADDRESS" />
+        </property>
+    </class>
+</hibernate-mapping>
