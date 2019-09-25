@@ -57,7 +57,7 @@
                 <label class='label1'>生日:</label><input id="date" type="date" name="birth"><span id="date_password"></span>
             </div>
             <div id="submit" class="div1" style="text-align: center">
-                <button type="submit" disabled>註冊</button>
+                <button type="submit">註冊</button>
 
             </div>
         </fieldset>
