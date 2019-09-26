@@ -153,8 +153,8 @@ public class RegisteredMember extends HttpServlet {
 //	
 			String host = "smtp.gmail.com";
 			int port = 587;
-			final String Email = "jtes149589@gmail.com";// your Gmail
-			final String EmailPwd = "jtes5505";// your password
+			final String Email = "";// your Gmail
+			final String EmailPwd = "";// your password
 
 			Properties props = new Properties();
 			props.put("mail.smtp.host", host);
@@ -170,7 +170,7 @@ public class RegisteredMember extends HttpServlet {
 			try {
 
 				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress("jtes149589@gmail.com"));
+				message.setFrom(new InternetAddress(""));
 				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(account));
 				message.setSubject("驗證信");
 				message.setText("Wellcome To FootBook \n http://localhost:8090/EEIT109_35/CheckMember.do?id=" + memberId

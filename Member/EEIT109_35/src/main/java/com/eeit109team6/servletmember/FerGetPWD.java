@@ -100,7 +100,7 @@ public class FerGetPWD extends HttpServlet {
 		try {
 
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("cctytw2000@gmail.com"));
+			message.setFrom(new InternetAddress(""));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(account));
 			message.setSubject("忘記密碼");
 			message.setText("http://localhost:8090/EEIT109_35/member/forgetPWDInsertNewPassowrd.jsp?account=" + account
