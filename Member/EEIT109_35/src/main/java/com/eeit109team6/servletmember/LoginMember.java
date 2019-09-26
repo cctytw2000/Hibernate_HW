@@ -2,6 +2,8 @@ package com.eeit109team6.servletmember;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,57 +29,65 @@ public class LoginMember extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		HttpSession session = request.getSession();
 		System.out.println("login" + request.getParameter("login"));
 		System.out.println("fergetpwd" + request.getParameter("fergetpwd"));
 		if (request.getParameter("fergetpwd") != null) {
 			RequestDispatcher rd = request.getRequestDispatcher("/member/forgetPWD.html");
 			rd.forward(request, response);
-		} else {
-
-			request.setCharacterEncoding("UTF-8");
-			response.setContentType("text/html;charset=UTF-8");
-			String account = request.getParameter("account");
-			String password = request.getParameter("password");
-
-			String key = "MickeyKittyLouis";
-			String password_AES = CipherUtils.encryptString(key, password).replaceAll("[\\pP\\p{Punct}]", "")
-					.replace(" ", "");
-
-			Member mem = new Member();
-			mem.setAccount(account);
-			mem.setPassword(password_AES);
-			HttpSession session = request.getSession();
-			IMemberDao MEMDao = null;
-
-			sessionFactory=HibernateUtil.getSessionfactory();
-
-			try {
-				MEMDao = MemberDaoFactoery.createMember(sessionFactory);
-
-				Member member = MEMDao.login(mem);
-//			System.out.println("member.getAccount() = "+member.getAccount());
-//			System.out.println(member.getAccount() != "");
-				System.out.println("member != null  =  " + (member != null));
-				if (member != null) {
-					session.setAttribute("username", member.getUsername());
-					session.setAttribute("token", member.getToken());
-					session.setAttribute("account", member.getAccount());
-					session.setAttribute("member_id", member.getMember_id());
-					response.getWriter().write("<script>alert('歡迎光臨');</script>");
-
-					request.setAttribute("msg", "歡迎光臨");
-					RequestDispatcher rd = request.getRequestDispatcher("member/jump.jsp");
-					rd.forward(request, response);
-				} else {
-
-					response.getWriter().write("<script>alert('帳號或密碼錯誤，或者未開通');history.go(-1);</script>");
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			return;
 		}
+
+		String account = request.getParameter("account");
+		String password = request.getParameter("password");
+		
+		if (account == null || account.trim().length() == 0) {
+			response.getWriter().write("<script>alert('帳號必須填入');history.go(-1);</script>");
+			return ;
+		}
+		// 如果 password 欄位為空白，放一個錯誤訊息到 errorMsgMap 之內
+		if (password == null || password.trim().length() == 0) {
+			response.getWriter().write("<script>alert('密碼必須填入');history.go(-1);</script>");
+			return ;
+		}
+
+		String key = "MickeyKittyLouis";
+		String password_AES = CipherUtils.encryptString(key, password).replaceAll("[\\pP\\p{Punct}]", "").replace(" ",
+				"");
+
+		Member mem = new Member();
+		mem.setAccount(account);
+		mem.setPassword(password_AES);
+		IMemberDao MEMDao = null;
+
+		sessionFactory = HibernateUtil.getSessionfactory();
+
+		try {
+			MEMDao = MemberDaoFactoery.createMember(sessionFactory);
+
+			Member member = MEMDao.login(mem);
+
+			System.out.println("member != null  =  " + (member != null));
+			if (member != null) {
+				session.setAttribute("username", member.getUsername());
+				session.setAttribute("token", member.getToken());
+				session.setAttribute("account", member.getAccount());
+				session.setAttribute("member_id", member.getMember_id());
+				response.getWriter().write("<script>alert('歡迎光臨');</script>");
+
+				request.setAttribute("msg", "歡迎光臨");
+				RequestDispatcher rd = request.getRequestDispatcher("member/jump.jsp");
+				rd.forward(request, response);
+			} else {
+
+				response.getWriter().write("<script>alert('帳號或密碼錯誤，或者未開通');history.go(-1);</script>");
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
 	}
 }

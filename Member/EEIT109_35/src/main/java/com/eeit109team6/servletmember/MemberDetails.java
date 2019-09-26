@@ -20,31 +20,43 @@ import com.eeit109team6.memberDao.IMemberDao;
 import com.eeit109team6.memberDao.Member;
 import com.eeit109team6.memberDao.MemberDaoFactoery;
 
-
 @WebServlet("/MemberDetails")
 public class MemberDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private SessionFactory sessionFactory;
 	private Session hbSession;
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession(false);
+		System.out.println("session=" + session);
+		if (session == null) { // 使用逾時
+			System.out.println("session == null");
+			response.sendRedirect(getServletContext().getContextPath() + "/home.jsp");
+			return;
+		}
+		if (session.getAttribute("account") == null) {
+			System.out.println("session.getAttribute(\"account\").toString() == null");
+			
+			response.sendRedirect(getServletContext().getContextPath() + "/home.jsp");
+			return;
+		}
+//		HttpSession session = request.getSession();
 		System.out.println(session.getAttribute("account"));
 
-		Member mem = new Member ();
+		Member mem = new Member();
 		mem.setAccount(session.getAttribute("account").toString());
 		mem.setToken(session.getAttribute("token").toString());
 		mem.setMember_id(Integer.parseInt(session.getAttribute("member_id").toString()));
 		mem.setUsername(session.getAttribute("username").toString());
 		Member memberDetails = null;
-		sessionFactory=HibernateUtil.getSessionfactory();
+		sessionFactory = HibernateUtil.getSessionfactory();
 
 		try {
 			IMemberDao MEMDao = MemberDaoFactoery.createMember(sessionFactory);
 
 			memberDetails = MEMDao.fintById(mem);
-			request.setAttribute("member",memberDetails);
+			request.setAttribute("member", memberDetails);
 			RequestDispatcher rd = request.getRequestDispatcher("member/memberDetails.jsp");
 
 			rd.forward(request, response);
@@ -52,7 +64,6 @@ public class MemberDetails extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
 

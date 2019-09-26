@@ -8,6 +8,7 @@ import com.eeit109team6.memberDao.HibernateUtil;
 public class SessionFactoryListner implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+		
 		HibernateUtil.getSessionfactory();
 		System.out.println("Session Factory is Created");
 	}

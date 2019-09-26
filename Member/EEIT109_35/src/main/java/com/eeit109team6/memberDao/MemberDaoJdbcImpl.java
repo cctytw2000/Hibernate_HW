@@ -144,15 +144,12 @@ public class MemberDaoJdbcImpl implements IMemberDao {
 
 	@Override
 	public Member login(Member m) throws SQLException {
-		System.out.println("account" + m.getAccount());
-		System.out.println(m.getPassword());
 		List<Member> memList = null;
 		Query query = getSessionFactory().getCurrentSession()
 				.createQuery("from Member where account = ?1 and password = ?2 and isactive = 1");
 		query.setParameter(1, m.getAccount());
 		query.setParameter(2, m.getPassword());
 		memList = (List<Member>) query.getResultList();
-		System.out.println("memList.size()" + memList.size());
 		if (memList.size() != 0) {
 
 			return memList.get(0);
@@ -160,30 +157,6 @@ public class MemberDaoJdbcImpl implements IMemberDao {
 			return null;
 		}
 
-//		String sqlcode = "select *  from member where account = ? and password = ? and isactive = 1";
-//		PreparedStatement state = conn.prepareStatement(sqlcode);
-//		state.setString(1, m.getAccount());
-//		state.setString(2, m.getPassword());
-//		ResultSet rs = state.executeQuery();
-//		Member memberData = null;
-//
-//		while (rs.next()) {
-//			memberData = new Member();
-//			System.out.println("rs.getInt(\"member_id\")==" + rs.getInt("member_id"));
-//			memberData.setMember_id(rs.getInt("member_id"));
-//			memberData.setAccount(rs.getString("account"));
-//			memberData.setPassword(rs.getString("password"));
-//			memberData.setToken(rs.getString("token"));
-//			memberData.setUsername(rs.getString("username"));
-//			memberData.setIdnumber(rs.getString("idnumber"));
-//			memberData.setSex(rs.getString("sex"));
-//			memberData.setBirth(rs.getString("birth"));
-//			memberData.setRegisteredtime(rs.getString("registeredtime"));
-//
-//		}
-//		rs.close();
-//		state.close();
-//		return memberData;
 	}
 
 	@Override
@@ -216,8 +189,6 @@ public class MemberDaoJdbcImpl implements IMemberDao {
 
 		if (memList.size() != 0) {
 			memList.get(0).setToken(m.getToken());
-		} else {
-			System.out.println("找不到該帳號");
 		}
 
 	}
@@ -234,20 +205,15 @@ public class MemberDaoJdbcImpl implements IMemberDao {
 
 		if (memList.size() != 0) {
 			memList.get(0).setPassword(m.getPassword());
-		} else {
-			System.out.println("找不到該帳號");
 		}
 
 	}
 
 	@Override
 	public boolean checkAccount(Member m) throws SQLException {
-		System.out.println("checkAccount");
 		List<Member> memList = null;
 		Query query = getSessionFactory().getCurrentSession().createQuery("from Member where account =?1");
-//		System.out.println("m.getAccount()" + m.getAccount());
 		query.setParameter(1, m.getAccount());
-//		System.out.println("query.getSingleResult() ===="+query.getSingleResult());
 		memList = (List<Member>) query.getResultList();
 
 		if (memList.size() != 0) {

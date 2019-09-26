@@ -26,7 +26,7 @@
 						</c:when>
 						<c:otherwise>
 							<li><a href="member/RegisteredMember.html">註冊會員</a></li>
-							<li><a href="member/LoginMember.html">登入會員</a></li>
+							<li><a href="member/LoginMember.jsp">登入會員</a></li>
 						</c:otherwise>
 
 					</c:choose>

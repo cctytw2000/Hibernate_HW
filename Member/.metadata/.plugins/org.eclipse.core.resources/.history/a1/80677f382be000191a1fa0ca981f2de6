@@ -1,0 +1,62 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login Member</title>
+<style>
+.div1 {
+	border-bottom: 2px solid blue;
+	padding-bottom: 20px;
+	margin: 20px;
+	width: 450px;
+	width: 80%
+}
+.label1 {
+	width: 100px;
+	float: left;
+	text-align: right
+}
+fieldset {
+	width: 50%;
+	height: 70%;
+	border: 2px solid lightgreen;
+	border-radius: 20px;
+	margin: auto auto;
+	padding: auto auto;
+	box-shadow: 5px 5px 5px green;
+}
+input:focus {
+	background-color: #cccccc
+}
+</style>
+</head>
+<body>
+	<form action="../LoginMember.do" method="post">
+
+		<fieldset>
+			<legend>登入帳號</legend>
+			<div class="div1">
+				<label class='label1'>帳號:</label><input type="text" id="account"
+					name="account">
+			</div>
+			<div class="div1">
+				<label class='label1'>密碼:</label><input type="password"
+					id="password" name="password">
+
+			</div>
+			<div class="div1" style="text-align: center">
+			<h2 style="color:red;">${ErrorMsgKey.AccountEmptyError}、${ErrorMsgKey.PasswordEmptyError}</h2>
+		
+		
+		
+				<input name="login" type="submit" value="登入"> <input
+					name="fergetpwd" type="submit" value="忘記密碼">
+			</div>
+
+		</fieldset>
+	</form>
+</body>
+</html>
