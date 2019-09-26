@@ -1,5 +1,7 @@
 package com.eeit109team6.servletmember;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.SecureRandom;
@@ -63,9 +65,7 @@ public class RegisteredMember extends HttpServlet {
 		// ===============================處理資料====================
 		if (account != "" && password != "" && alladdress != "" && username != "" && idnumber != "" && sex != null
 				&& birth != "") {
-			
-			
-			
+
 			// ==============設定創建帳號時間=======================
 			Calendar rightNow = Calendar.getInstance();
 			String registeredtime = rightNow.get(Calendar.YEAR) + "-" + (rightNow.get(Calendar.MONTH) + 1) + "-"
@@ -73,9 +73,6 @@ public class RegisteredMember extends HttpServlet {
 					+ rightNow.get(Calendar.MINUTE) + ":" + rightNow.get(Calendar.SECOND);
 			// ==============/設定創建帳號時間=======================
 
-			
-			
-			
 			// ==============密碼加密=======================
 			int isactive = 0;
 			String key = "MickeyKittyLouis";
@@ -83,9 +80,6 @@ public class RegisteredMember extends HttpServlet {
 					.replace(" ", "");
 			// ==============/密碼加密=======================
 
-			
-			
-			
 			// ===============設定member物件============
 			Member mem = new Member();
 			mem.setAccount(account);
@@ -99,8 +93,6 @@ public class RegisteredMember extends HttpServlet {
 			mem.setIsactive(isactive);
 			// ===============/設定member物件============
 
-			
-			
 			// ==============設定token====================
 			KeyGenerator keyGen;
 			try {
@@ -119,9 +111,7 @@ public class RegisteredMember extends HttpServlet {
 				e.printStackTrace();
 			}
 			// ==============/設定token====================
-			
-			
-			
+
 			// ==============寫進資料庫===================
 			sessionFactory = HibernateUtil.getSessionfactory();
 //			session = sessionFactory.openSession();
@@ -151,10 +141,23 @@ public class RegisteredMember extends HttpServlet {
 //			//==============/寫進資料庫===================
 //
 //	
+			String email = null ;
+			String pwd = null ;
+
+			BufferedReader bfr = new BufferedReader(new FileReader("C:\\sqldata\\sqldata.txt"));
+			String data;
+
+			while ((data = bfr.readLine()) != null) {
+				System.out.println(data);
+				email = data.split(",")[0];
+				pwd = data.split(",")[1];
+			}
+			
+			bfr.close();
+			final String Email = email;// your Gmail
+			final String EmailPwd = pwd;// your password
 			String host = "smtp.gmail.com";
 			int port = 587;
-			final String Email = "";// your Gmail
-			final String EmailPwd = "";// your password
 
 			Properties props = new Properties();
 			props.put("mail.smtp.host", host);

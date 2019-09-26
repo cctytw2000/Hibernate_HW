@@ -1,5 +1,7 @@
 package com.eeit109team6.servletmember;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.sql.Connection;
@@ -81,10 +83,25 @@ public class FerGetPWD extends HttpServlet {
 
 		}
 
+		String email = null ;
+		String pwd = null ;
+
+		BufferedReader bfr = new BufferedReader(new FileReader("C:\\sqldata\\sqldata.txt"));
+		String data;
+
+		while ((data = bfr.readLine()) != null) {
+			System.out.println(data);
+			email = data.split(",")[0];
+			pwd = data.split(",")[1];
+		}
+		
+		bfr.close();
+		
+		
 		String host = "smtp.gmail.com";
 		int port = 587;
-		final String Email = "";// your Gmail
-		final String EmailPwd = "";// your password
+		final String Email = email;// your Gmail
+		final String EmailPwd = pwd;// your password
 
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
