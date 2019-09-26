@@ -34,7 +34,8 @@
                 <h6 style="color: gray;font-size: 8px">(1.不可空白，2.至少兩個字以上，3.必須為中文字)</h6>
             </div>
             <div class="div1">
-                <label class='label1'>身分證字號:</label><input id="idnumber" type="text" name="idnumber"><span id="idnumber_password"></span>
+                <label class='label1'>身分證字號:</label><input id="idnumber" type="text" name="idnumber"><span
+                    id="idnumber_password"></span>
             </div>
 
             <div class="div1">
@@ -44,17 +45,27 @@
                 </select>
                 <select id="Township">
                     <option value=""></option>
-                </select><input type="text" size="30" name="alladdress" id="alladdress" value=""><span id="address_password"></span>
-                
+                </select><input type="text" size="30" name="alladdress" id="alladdress" value=""><span
+                    id="address_password"></span>
+
             </div>
 
 
             <div class="div1">
-                <label class='label1'>性別:</label><input type="radio" id="sex" name="sex" value="male" required="required">男<input id="sex" type="radio"
-                    name="sex" value="female">女<span id="sex_password" required="required"></span>
+                <label class='label1'>性別:</label><input type="radio" id="sex" name="sex" value="male"
+                    required="required">男<input id="sex" type="radio" name="sex" value="female">女<span id="sex_password"
+                    required="required"></span>
             </div>
             <div class="div1">
-                <label class='label1'>生日:</label><input id="date" type="date" name="birth"><span id="date_password"></span>
+                <label class='label1'>生日:</label><input id="date" type="date" name="birth"><span
+                    id="date_password"></span>
+            </div>
+            <div style="margin: auto auto;width: 60%">
+                <button type="button" style="background-color: #0066FF" class="btn btn-facebook" onclick="FBLogin();"><i
+                        class="fab fa-facebook-f fa-lg"></i> Facebook註冊
+                </button> <button type="button" style="background-color: 	#FF3333" class="btn btn-google"
+                    onclick="GoogleLogin();"><i class="fab fa-google-plus-g fa-lg"></i> Google註冊
+                </button>
             </div>
             <div id="submit" class="div1" style="text-align: center">
                 <button type="submit" disabled>註冊</button>

@@ -7,14 +7,27 @@ let birth_check_val = false;
 let idnumber_check_val = false;
 
 let pwShown = 0;
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 	document.getElementById("account").addEventListener("blur", check_account);
-	document.getElementById("username").addEventListener("blur", check_username); // 事件繫結，事件氣泡(bubbling)
+	document.getElementById("account").addEventListener("blur", opencreate);
+
+	document.getElementById("username").addEventListener("blur", check_username); 
+	document.getElementById("username").addEventListener("blur", opencreate);
+
 	document.getElementById("password").addEventListener("blur", check_password);
+	document.getElementById("password").addEventListener("blur", opencreate);
+
 	document.getElementById("alladdress").addEventListener("blur", check_address);
+	document.getElementById("alladdress").addEventListener("blur", opencreate);
+
 	document.getElementById("idnumber").addEventListener("blur", check_idnumber);
+	document.getElementById("idnumber").addEventListener("blur", opencreate);
+
 	document.getElementById("date").addEventListener("blur", check_birth);
 	document.getElementById("date").addEventListener("blur", opencreate);
+
+	
+
 });
 function check_idnumber() {
 	if (document.getElementById("idnumber").value != "") {
@@ -39,7 +52,7 @@ function check_birth() {
 	if (document.getElementById("date").value != "") {
 		birth_check_val = true;
 		document.getElementById("date_password").innerHTML = "<img src='../Images/yes.jpg'>格式符合"
-	}else {
+	} else {
 		document.getElementById("date_password").innerHTML = "<img src='../Images/noway.jpg'>不可空白"
 
 	}
@@ -71,6 +84,8 @@ function showHide() {
 }
 
 function opencreate() {
+	console.log("opencreate")
+	console.log("account_check_val_repeat==="+account_check_val_repeat)
 	if (password_check_val && username_check_val && account_check_val && account_check_val_repeat && address_check_val && birth_check_val && idnumber_check_val) {
 		document.getElementById("submit").innerHTML = "<button type='submit'>註冊</button>";
 	}
@@ -81,7 +96,7 @@ function check_account() {
 	let PWDVal = document.getElementById("account").value;
 	var PWDVallen = PWDVal.length;
 	let flag1 = false, flag2 = false, flag3 = false
-	let special = [ '!', '@', '#', '$', '%', '^', '&', '*' ]
+	let special = ['!', '@', '#', '$', '%', '^', '&', '*']
 
 	if (PWDVal == "") {
 		document.getElementById("account_msg").innerHTML = "<img src='../Images/noway.jpg'>不可空白"
@@ -146,7 +161,7 @@ function check_password() {
 	let PWDVal = document.getElementById("password").value;
 	var PWDVallen = PWDVal.length;
 	let flag1 = false, flag2 = false
-	let special = [ '!', '@', '#', '$', '%', '^', '&', '*' ]
+	let special = ['!', '@', '#', '$', '%', '^', '&', '*']
 
 	if (PWDVal == "") {
 		document.getElementById("msg_password").innerHTML = "<img src='../Images/noway.jpg'>不可空白"
@@ -176,19 +191,20 @@ function check_password() {
 	// document.getElementById("msg_password").innerHTML = "<img
 	// src='image/yes.jpg'>"
 }
-$(document).ready(function() {
-	$("#check").click(function() {
+$(document).ready(function () {
+	$("#check").click(function () {
 		if ($("#account").val() != "") {
 			$.ajax({
-				url : "../Check_Repeat.do",
-				data : {
-					account : $("#account").val()
+				url: "../Check_Repeat.do",
+				data: {
+					account: $("#account").val()
 				},
-				type : "POST",
-				success : function(data) {
+				type: "POST",
+				success: function (data) {
 					if (data == "true") {
-						alert("您可以使用此帳號");
 						account_check_val_repeat = true;
+						opencreate();
+						alert("您可以使用此帳號");
 					} else {
 						alert("此帳號已重複註冊")
 					}

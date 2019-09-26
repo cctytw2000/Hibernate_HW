@@ -1,8 +1,8 @@
 let opens1 = false;
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 	document.getElementById("re_password").addEventListener("input",
-			check_re_PWD);// 事件繫結，事件氣泡(bubbling)
+		check_re_PWD);// 事件繫結，事件氣泡(bubbling)
 	document.getElementById("re_password").addEventListener("blur", open);
 
 });
